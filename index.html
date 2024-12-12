@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Thank You for Your Purchase!</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/party-js@latest/bundle/party.min.js"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+  <style>
+    .card {
+      background: #f7fafc;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .balloons {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 1000;
+    }
+
+    .clipboard-btn {
+      cursor: pointer;
+    }
+
+    /* Keyframes for floating balloons */
+    @keyframes floatUp {
+      0% {
+        transform: translateY(0);
+      }
+      100% {
+        transform: translateY(-100vh);
+        opacity: 0;
+      }
+    }
+
+    .balloon {
+      position: absolute;
+      border-radius: 50%;
+      animation: floatUp 4s ease-in forwards; /* Floating effect */
+      opacity: 1;
+    }
+  </style>
+</head>
+<body class="bg-gray-100 font-sans leading-normal tracking-wide relative">
+
+  <!-- Balloons/Party Poppers Animation -->
+  <div id="balloons" class="balloons"></div>
+
+  <div class="min-h-screen flex items-center justify-center bg-gray-100">
+    <div class="max-w-3xl w-full p-8 card">
+      <div class="text-center mb-6">
+        <h1 class="text-3xl font-semibold text-gray-800">Thank You for Your Purchase!</h1>
+        <p class="text-gray-600 mt-2">We appreciate your purchase and are excited for you to get started with our software!</p>
+      </div>
+
+      <!-- License Key Section -->
+      <div class="bg-white p-6 rounded-lg shadow-lg">
+        <h2 class="text-xl font-semibold text-gray-800 mb-4">Your Purchase License Key</h2>
+        <div class="flex items-center space-x-2">
+          <input id="license-key" type="text" readonly value="ABCD-1234-EFGH-5678-IJKL" class="flex-grow p-2 bg-gray-100 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500">
+          <i onclick="copyLicense()" class="clipboard-btn text-2xl text-blue-500 cursor-pointer fas fa-clipboard"></i>
+        </div>
+        <p class="text-gray-500 mt-2">This key is unique to your purchase. Please keep it safe for future reference.</p>
+      </div>
+
+      <!-- Demo Section -->
+      <div class="bg-white p-6 mt-6 rounded-lg shadow-lg">
+        <h2 class="text-xl font-semibold text-gray-800 mb-4">Access the Demo</h2>
+        <p class="text-gray-600">Before you dive into the software, here’s a link to our demo version so you can get familiar with it:</p>
+        <a href="https://demo.softwarelink.com" target="_blank" class="text-blue-500 hover:underline mt-2 inline-block">Click here to visit the demo</a>
+      </div>
+
+      <!-- Demo Instructions Section -->
+      <div class="bg-white p-6 mt-6 rounded-lg shadow-lg">
+        <h2 class="text-xl font-semibold text-gray-800 mb-4">Demo Instructions</h2>
+        <ul class="list-disc pl-5 space-y-2">
+          <li>Visit the demo link to explore the core features.</li>
+          <li>Try out the user interface and basic functionality.</li>
+          <li>If you have any issues or need help, please refer to the user guide or contact support.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Function to copy the license key
+    function copyLicense() {
+      var licenseKey = document.getElementById('license-key');
+      licenseKey.select();
+      licenseKey.setSelectionRange(0, 99999); // For mobile devices
+      document.execCommand('copy');
+      alert("License Key Copied to Clipboard!");
+    }
+
+    // Display party poppers and balloons
+    window.onload = function() {
+      // Triggering party poppers (confetti) for 3 seconds
+      party.confetti(document.body, {
+        count: 200, // Increase number of confetti
+        size: 2,
+        spread: 90, // Wider spread
+        speed: 3, // Speed of confetti
+        angle: 90 // Party poppers from top
+      });
+
+      // Wait 3 seconds before showing balloons
+      setTimeout(function() {
+        // Displaying multiple balloons going up for 4 seconds
+        for (let i = 0; i < 30; i++) {
+          const balloon = document.createElement('div');
+          balloon.classList.add('balloon');
+          balloon.style.width = `${Math.random() * 50 + 30}px`; // Random width
+          balloon.style.height = balloon.style.width; // Keep the height the same as the width
+          balloon.style.backgroundColor = `hsl(${Math.random() * 360}, 70%, 60%)`; // Random color
+          balloon.style.left = `${Math.random() * 100}%`; // Random horizontal position
+          balloon.style.animationDuration = `${Math.random() * 4 + 3}s`; // Random floating speed
+          balloon.style.opacity = 1; // Ensure balloon is visible
+
+          document.body.appendChild(balloon);
+        }
+      }, 3000); // Start balloons after 3 seconds
+    }
+  </script>
+
+</body>
+</html>
