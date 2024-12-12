@@ -12,7 +12,7 @@ const supabase = createClient(
 );
 
 // Stripe webhook secret
-const endpointSecret = 'https://ejfxiadnxrnsozfelovu.supabase.co';
+const endpointSecret = 'whsec_77i4GgTEPChUvOouGju9tv5Esbmqs4iy';
 
 // Use raw body parser for Stripe (required to validate webhook signature)
 app.use(bodyParser.raw({ type: 'application/json' }));
