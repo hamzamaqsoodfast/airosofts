@@ -1,17 +1,18 @@
-
-
 const express = require('express');
-const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);  // Load from environment variables
+const stripe = require('stripe')('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');
 const { createClient } = require('@supabase/supabase-js');
 const bodyParser = require('body-parser');
 
 const app = express();
 
-// Initialize Supabase client with environment variables
-const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_API_KEY);
+// Initialize Supabase client with hardcoded credentials
+const supabase = createClient(
+  'https://ejfxiadnxrnsozfelovu.supabase.co',
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVqZnhpYWRueHJuc296ZmVsb3Z1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzIyOTMyMzQsImV4cCI6MjA0Nzg2OTIzNH0.-zHygvQ_ldcLWpFWaDo_FhhmhgkYSFjIdN8eTvA4yLo'
+);
 
-// Stripe webhook secret (set in your environment variables)
-const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET;
+// Stripe webhook secret
+const endpointSecret = 'https://ejfxiadnxrnsozfelovu.supabase.co';
 
 // Use raw body parser for Stripe (required to validate webhook signature)
 app.use(bodyParser.raw({ type: 'application/json' }));
@@ -65,7 +66,7 @@ app.post('/webhook', async (req, res) => {
 });
 
 // Start the server
-const port = process.env.PORT || 3000;
+const port = 3000;  // Fixed port
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
 });
